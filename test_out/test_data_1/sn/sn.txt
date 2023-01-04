@@ -1,0 +1,10 @@
+# SN	[2]id	[3]key	[4]value
+SN	0	number of samples:	3
+SN	0	number of records:	7597709
+SN	0	number of no-ALTs:	0
+SN	0	number of SNPs:	6255182
+SN	0	number of MNPs:	0
+SN	0	number of indels:	1363927
+SN	0	number of others:	0
+SN	0	number of multiallelic sites:	233687
+SN	0	number of multiallelic SNP sites:	7029

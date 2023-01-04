@@ -1,0 +1,6 @@
+[
+'termcolor<=2.0.1', 'mne<=0.23.0', 'matplotlib>=3.3.2',
+'seaborn>=0.11.0', 'numpy>=1.17.0rc1', 'pandas>=1.5.0'
+]
+
+MNE VERSION MUST BE 0.23

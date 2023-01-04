@@ -1,0 +1,141 @@
+@startuml ClassConceptDiagram
+    
+
+    package test.py {
+    
+
+        note "Unit test suite." as test_note
+    }
+
+    package file_handler.py {
+
+        class FileParser {
+            Methods
+            ==
+            + _init_(str file_path)
+            --
+            Static Methods
+            ==
+            + {static} write_to_file([str] lines)
+        }
+
+
+        class StatsFileObject {
+            Members
+            ==
+            + {str => Section} sections
+        }
+
+        note left of StatsFileObject::sections
+            A dictionary from section 
+            name (lower case)
+            to the section.
+        end note
+
+        class Section {
+            Members
+            ==
+            + [str] text
+            + pd.DataFrame data
+        }
+
+        StatsFileObject "1" --* "*" Section
+
+        FileParser -[dashed]-> "parses many" Section
+
+        FileParser -[dashed]-> "produces" StatsFileObject
+
+
+    }
+
+    package argparse <<cloud>>{
+        class ArgumentParser {
+            methods and members
+            not shown here
+        }
+
+        note right of ArgumentParser
+            External Package "argparse".
+            Included in this diagram for
+            illustrative purposes.
+        end note
+
+    }
+
+    package plotting.py {
+        note right of DataPlotter
+        Some class names have been shorted
+        in comparison with source.
+        end note
+        abstract class DataPlotter {
+            Static Methods:
+            --
+            + {static} DataPlotter get_instance()
+            ==
+            Methods:
+            ==
+            + {abstract} None plot()
+            + None save()
+            + None _init_()
+            ==
+            Members:
+            ==
+            - figure
+            - data
+            - styling_params
+        }
+
+        note left of DataPlotter::get_instance
+            Static factory method that returns 
+            the correct subtype. Main method
+            gets an instance for every type of
+            plot the user wants.
+        end note
+
+        note left of DataPlotter::styling_params
+            All subclasses inherit these
+            properties for consistent
+            plots.
+        end note
+
+        SubstitutionPlotter --|> DataPlotter
+        QualityPlotter --|> DataPlotter
+        IndelPlotter --|> DataPlotter
+        DepthDistributionPlotter --|> DataPlotter
+        HWEPlotter --|> DataPlotter
+        PSIPlotter --|> DataPlotter
+        PSCPlotter --|> DataPlotter
+        TSTVSPlotter --|> DataPlotter
+        AFPlotter --|> DataPlotter
+        SingletonSPlotter --|> DataPlotter
+        SummaryPlotter --|> DataPlotter
+
+    }
+    Section "1" -- "1" DataPlotter
+    package argument_parser.py {
+        class CustomArgumentParser {
+            Methods
+            ==
+            + None check_arguments()
+            + [str] get_actions()
+            
+            @Override
+            + (actions, args) parse_args()
+            ==
+            - None _construct()
+        }
+
+        CustomArgumentParser "extends" ---|>  ArgumentParser
+    }
+
+    package utils.py {
+        note "Set of standalone methods\nsuch as 'warn' or 'error'." as util_note
+    }
+
+    package _main_.py as main {
+        note "Invokes the high-level procedure\nby calling methods / classes\nfrom other packages.\n Starting with CustomArgumentParser" as main_note
+
+    }
+
+
+@enduml
